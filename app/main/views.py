@@ -1,12 +1,22 @@
 from app.models import AvailableBeds, NGOs
-from flask import render_template, url_for, session, redirect
+from flask import request, render_template, url_for, session, redirect
+from flask_login import login_required
 
 from . import main
 from .forms import BedRegistrationForm
 from .. import db
 
-@main.route('/', methods=['GET','POST'])
+@main.route('/')
 def index():
+    if not session.get('name'):
+        name = "Normal User"
+    else:
+        name = session.get('name')
+    return render_template('index.html', name=name, beds=AvailableBeds.query.all()[::-1]), 200
+
+@main.route('/bedreg', methods=['GET','POST'])
+@login_required
+def bedregister():
     form = BedRegistrationForm()
     if form.validate_on_submit():
         number = form.number.data
@@ -22,6 +32,14 @@ def index():
                     with_ventilators=with_ventilators, ngo=ngo)
         db.session.add(bed)
         db.session.commit()
-        return redirect(url_for('main.index'))
+        next = request.args.get('next')
+        if next is None or not next.startswith('/'):
+            next = url_for('main.index')
+        return redirect(next)
+    if not session.get('name'):
+        name = "Normal User"
+    else:
+        name = session.get('name')
 
-    return render_template('index.html', form=form, name=session.get('name'), beds=AvailableBeds.query.all()[::-1]), 200
+    return render_template('bedreg.html', form=form, name=name)
+ 

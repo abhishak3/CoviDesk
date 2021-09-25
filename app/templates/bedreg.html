@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+    <h4>Logged in as {{ name }}</h4>
+    <h1>Empty Bed Info</h1>
+    
+    {% import "bootstrap/wtf.html" as wtf %}
+    {{ wtf.quick_form(form) }}
+
+{% endblock %}
