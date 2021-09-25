@@ -1,14 +1,13 @@
-<html>
-    <body>
-        <form method="POST">
-            <!-- {{ form.hidden_tag() }}
-            {{ form.email.label }} {{ form.email() }}
-            {{ form.password.label }} {{ form.password() }}
-            {{ form.remember_me() }} {{ form.remember_me.label }} 
-            {{ form.submit() }} -->
-
-            {% import "bootstrap/wtf.html" as wtf %}
-            {{ wtf.quick_form(form) }}
-        </form>
-    </body>
-</html>
+{% extends "base.html" %}
+{% block page_content %}
+    <form method="POST">
+        <!-- {{ form.hidden_tag() }}
+                {{ form.email.label }} {{ form.email() }}
+                {{ form.password.label }} {{ form.password() }}
+                {{ form.remember_me() }} {{ form.remember_me.label }} 
+                {{ form.submit() }} -->
+        
+        {% import "bootstrap/wtf.html" as wtf %}
+        {{ wtf.quick_form(form) }}
+    </form>
+{% endblock %}

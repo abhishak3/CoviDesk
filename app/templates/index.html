@@ -1,5 +1,4 @@
-<html>
-    <body>
-        <h1>This is from template.</h1>
-    </body>
-</html>
+{% extends "base.html" %}
+{% block page_content %}
+    <h1>Logged in as {{ name }}</h1>
+{% endblock %}
