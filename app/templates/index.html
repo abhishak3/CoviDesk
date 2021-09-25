@@ -1,4 +1,49 @@
 {% extends "base.html" %}
 {% block page_content %}
-    <h1>Logged in as {{ name }}</h1>
+    <h4>Logged in as {{ name }}</h4>
+    <h1>Available Beds</h1>
+    {% if current_user.is_authenticated %}
+    <button class="btn-success">Register Beds</button>
+    {% import "bootstrap/wtf.html" as wtf %}
+    {{ wtf.quick_form(form) }}
+    {% endif %}
+    <table id="data" class="table table-striped">
+        <thead>
+          <tr>
+            <th>Number</th>
+            <th>Hospital</th>
+            <th>Room Number</th>
+            <th>Provided By</th>
+            <!-- <th>Phone Number</th> -->
+            <!-- <th>Email</th> -->
+          </tr>
+        </thead>
+        <tbody>
+          {% for bed in beds %}
+            <tr>
+              <td>{{ bed.number }}</td>
+              <td>{{ bed.hospital }}</td>
+              <td>{{ bed.room_no }}</td>
+              <td>{{ bed.ngo.name }}</td>
+              <!-- <td>{{ bed.phone }}</td> -->
+              <!-- <td>{{ bed.email }}</td> -->
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
 {% endblock %}
+{%block tablescript%}
+<script>
+    $(document).ready(function () {
+      $('#data').DataTable({
+          columns:[
+            {orderable: false, searchable: false},
+            null,
+            {orderable: false, searchable: false},
+            null
+          ]
+      });
+    });
+</script>
+{%endblock%}

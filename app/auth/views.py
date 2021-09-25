@@ -3,7 +3,7 @@ from flask_login import login_user, logout_user, login_required
 from flask_login.utils import login_required
 from werkzeug.utils import redirect
 
-from app.models import Hospital
+from app.models import NGOs
 from . import auth
 from .forms import LoginForm, RegistrationForm
 from .. import db
@@ -12,13 +12,13 @@ from .. import db
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        hospital = Hospital.query.filter_by(email=form.email.data).first()
-        if hospital is not None and hospital.verify_password(form.password.data):
-            login_user(hospital,form.remember_me.data)
+        ngo = NGOs.query.filter_by(email=form.email.data).first()
+        if ngo is not None and ngo.verify_password(form.password.data):
+            login_user(ngo,form.remember_me.data)
             next = request.args.get('next')
             if next is None or not next.startswith('/'):
                 next = url_for('main.index')
-                session['name'] = hospital.name
+                session['name'] = ngo.name
             return redirect(next)
         else:
             flash("Invalid Username / Password")
@@ -36,11 +36,11 @@ def logout():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        hospital = Hospital(name=form.name.data,
+        ngo = NGOs(name=form.name.data,
         email=form.email.data,
         pincode=form.pincode.data,
         password=form.password.data)
-        db.session.add(hospital)
+        db.session.add(ngo)
         db.session.commit()
 
         flash("You can now login !")

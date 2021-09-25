@@ -1,9 +1,9 @@
 from wtforms.fields.core import IntegerField
-from app.models import Hospital
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, ValidationError
 
+from app.models import NGOs
 
 class LoginForm(FlaskForm):
         email = StringField('Email', validators=[DataRequired(), Length(1, 64), Email()])
@@ -24,5 +24,6 @@ class RegistrationForm(FlaskForm):
         submit = SubmitField('Register')
 
         def verify_email(self, email):
-                if Hospital.query.filter_by(email=email.data).first():
+                if NGOs.query.filter_by(email=email.data).first():
                         raise ValidationError("User already registered")
+
