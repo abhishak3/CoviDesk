@@ -21,6 +21,7 @@ def bedregister():
     if form.validate_on_submit():
         number = form.number.data
         hospital_name = form.hospital.data
+        pincode = form.pincode.data
         room_no = form.room_no.data
         with_oxygen = form.with_oxygen.data
         is_icu = form.is_icu.data
@@ -30,7 +31,7 @@ def bedregister():
         if Hospital.query.filter_by(name=hospital_name).first():
             hospital = Hospital.query.filter_by(name=hospital_name).first()
         else:
-            hospital = Hospital(name=hospital_name)
+            hospital = Hospital(name=hospital_name,pincode=pincode)
 
         bed = AvailableBeds(number=number, hospital=hospital,
                     room_no=room_no, with_oxygen=with_oxygen, is_icu=is_icu,

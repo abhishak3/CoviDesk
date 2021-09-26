@@ -43,6 +43,7 @@
         <thead>
           <tr>
             <th>Hospital</th>
+            <th>Pincode</th>
             <th>Oxygen Beds</th>
             <th>Ventilator Beds</th>
             <th>ICU Beds</th>
@@ -54,6 +55,7 @@
           {% for hospital in hospitals %}
             <tr>
               <td>{{ hospital.name }}</td>
+              <td>{{ hospital.pincode }}</td>
               <td>{{ len(hospital.available_beds.filter_by(with_oxygen=True).all()) }}</td>
               <td>{{ len(hospital.available_beds.filter_by(with_ventilators=True).all()) }}</td>
               <td>{{ len(hospital.available_beds.filter_by(is_icu=True).all()) }}</td>

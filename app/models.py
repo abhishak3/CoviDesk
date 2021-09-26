@@ -48,6 +48,7 @@ class Hospital(db.Model):
     __tablename__ = 'Hospital'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), nullable=False)
+    pincode = db.Column(db.Integer, nullable=False)
     available_beds = db.relationship('AvailableBeds', backref='hospital', lazy = 'dynamic')
 
     def __repr__(self):
