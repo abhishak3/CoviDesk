@@ -37,7 +37,7 @@
       </table>
 {% endblock %}
 
-{%block tablescript%}
+{% block tablescript %}
 <script>
     $(document).ready(function () {
       $('#data').DataTable({
@@ -45,9 +45,12 @@
             {orderable: false, searchable: false},
             null,
             {orderable: false, searchable: false},
+            {orderable: false, searchable: false},
+            {orderable: false, searchable: false},
+            {orderable: false, searchable: false},
             null
           ]
       });
     });
 </script>
-{%endblock%}
+{% endblock %}
