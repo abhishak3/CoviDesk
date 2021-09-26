@@ -25,8 +25,12 @@ git clone https://github.com/abhishak3/CoviDesk
       ```
       python3 -m venv venv
       ```  
-
-3. Setting up Environment Variables  
+3. Installing Dependencies
+    ```
+    pip install -r requirements.txt
+    ```
+    
+4. Setting up Environment Variables  
 
   - **For Windows**
     ```
@@ -44,7 +48,7 @@ git clone https://github.com/abhishak3/CoviDesk
     export SECRET_KEY=yoursecretkey
     ```
 
-4. Running the Application
+5. Running the Application
   ```
   flask run
   ```
