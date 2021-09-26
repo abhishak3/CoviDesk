@@ -1,7 +1,6 @@
-from flask import render_template, url_for, request, flash, session
+from flask import render_template, redirect, url_for, request, flash, session
 from flask_login import login_user, logout_user, login_required
 from flask_login.utils import login_required
-from werkzeug.utils import redirect
 
 from app.models import NGOs
 from . import auth

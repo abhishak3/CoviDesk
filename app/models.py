@@ -33,15 +33,25 @@ class AvailableBeds(db.Model):
     __tablename__ = 'AvailableBeds'
     id = db.Column(db.Integer, primary_key=True)
     number = db.Column(db.Integer, nullable=False)
-    hospital = db.Column(db.String(64), nullable=False)
+    #hospital = db.Column(db.String(64), nullable=False)
     room_no = db.Column(db.String(8), nullable=False)
     with_oxygen = db.Column(db.Boolean, nullable=False)
     is_icu = db.Column(db.Boolean, nullable=False)
     with_ventilators = db.Column(db.Boolean, nullable=False)
     ngo_id = db.Column(db.Integer, db.ForeignKey('ngos.id'))
+    hospital_id = db.Column(db.Integer, db.ForeignKey('Hospital.id'))
 
     def __repr__(self):
         return f'<AvailableBeds {self.number}>'
+
+class Hospital(db.Model):
+    __tablename__ = 'Hospital'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), nullable=False)
+    available_beds = db.relationship('AvailableBeds', backref='hospital', lazy = 'dynamic')
+
+    def __repr__(self):
+        return f'<Hospital {self.name}>'
 
 @login_manager.user_loader
 def load_hospital(ngo_id):

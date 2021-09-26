@@ -7,10 +7,12 @@
             <button class="btn-success">Register Beds</button>
         </a><br>
     {% endif %}
+    <hr><hr>
+    <h1>By Individual Beds</h1>
     <table id="data" class="table table-striped">
         <thead>
           <tr>
-            <th>Number</th>
+            <th>Bed Number</th>
             <th>Hospital</th>
             <th>Room Number</th>
             <th>Oxygen</th>
@@ -25,7 +27,7 @@
           {% for bed in beds %}
             <tr>
               <td>{{ bed.number }}</td>
-              <td>{{ bed.hospital }}</td>
+              <td>{{ bed.hospital.name }}</td>
               <td>{{ bed.room_no }}</td>
               <td>{{ "YES" if bed.with_oxygen else "NO"}}</td>
               <td>{{ "YES" if bed.with_ventilators else "NO"}}</td>
@@ -35,11 +37,45 @@
           {% endfor %}
         </tbody>
       </table>
+      <hr><hr>
+      <h1>By Total Number of Beds</h1>
+    <table id="data-2" class="table table-striped">
+        <thead>
+          <tr>
+            <th>Hospital</th>
+            <th>Oxygen Beds</th>
+            <th>Ventilator Beds</th>
+            <th>ICU Beds</th>
+            <!-- <th>Phone Number</th> -->
+            <!-- <th>Email</th> -->
+          </tr>
+        </thead>
+        <tbody>
+          {% for hospital in hospitals %}
+            <tr>
+              <td>{{ hospital.name }}</td>
+              <td>{{ len(hospital.available_beds.filter_by(with_oxygen=True).all()) }}</td>
+              <td>{{ len(hospital.available_beds.filter_by(with_ventilators=True).all()) }}</td>
+              <td>{{ len(hospital.available_beds.filter_by(is_icu=True).all()) }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
 {% endblock %}
 
 {% block tablescript %}
 <script>
     $(document).ready(function () {
+      $('#data-2').DataTable({
+          columns:[
+            null,
+            null,
+            null,
+            null
+          ]
+      });
+    });
+  $(document).ready(function () {
       $('#data').DataTable({
           columns:[
             {orderable: false, searchable: false},
