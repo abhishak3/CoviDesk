@@ -1,5 +1,6 @@
 # CoviDesk
-A Web Application where people can help hospitals and government, by giving information about available beds. And many more features !
+A Web Application made using [Flask](https://flask.palletsprojects.com) where different NGO's can collaborate and provide some useful information about availability of oxygen or empty beds at different hospitals.
+All the useful information can be found at a place.
 
 ## Installation
 1. Clone the repository on your system.
