@@ -53,3 +53,11 @@ git clone https://github.com/abhishak3/CoviDesk
   ```
   flask run
   ```
+
+# How it works ?
+- First, the NGOs can register on our site.
+- Then they need to login in order to inform people about the empty beds.
+- Once they are logged in they can add empty beds information on our Application which will be then available to normal user.
+- Normal users can only view the empty beds info.
+
+**NOTE** : This is a prototype Web Application and is still under development. 
